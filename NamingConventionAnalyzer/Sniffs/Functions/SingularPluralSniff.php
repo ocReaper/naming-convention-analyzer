@@ -5,9 +5,6 @@ namespace NamingConventionAnalyzer\Sniffs\Functions;
 use Illuminate\Support\Pluralizer;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays\ArrayDeclarationSniff;
-use PHP_CodeSniffer\Util\Tokens;
-use PHPCSUtils\Utils\Arrays;
 
 class SingularPluralSniff implements Sniff
 {
