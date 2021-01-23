@@ -10,21 +10,7 @@ class ActionPrefixSniff extends AbstractScopeSniff
 {
     protected const CODE_ACTION_PREFIX = 'ActionPrefix';
 
-    protected const ACTIONS = [
-        'compose',
-        'create',
-        'delete',
-        'fetch',
-        'get',
-        'handle',
-        'remove',
-        'reset',
-        'set',
-    ];
-
     protected const IGNORED_NAMES = [
-        'boot',
-        'register',
         'jsonSerialize',
         'offsetExists',
         'offsetGet',
@@ -32,14 +18,22 @@ class ActionPrefixSniff extends AbstractScopeSniff
         'offsetUnset',
     ];
 
-    protected const IGNORED_PREFIXES = [
-        '__',
-        'test',
-        'assert'
+    protected const PREFIXES = [
+        'has',
+        'is',
+        'should'
     ];
+
+    /**
+     * @var string[]
+     */
+    protected $verbs;
 
     public function __construct()
     {
+        $lexicon = file_get_contents(realpath(__DIR__ . '/../../NLP') . DIRECTORY_SEPARATOR . 'verb-lexicon.txt');
+        $this->verbs = explode("\n", $lexicon);
+
         parent::__construct(Tokens::$ooScopeTokens, [T_FUNCTION], true);
     }
 
@@ -74,14 +68,12 @@ class ActionPrefixSniff extends AbstractScopeSniff
 
     protected function isFrameworkFunction(string $name): bool
     {
-        if (in_array($name, static::IGNORED_NAMES)) {
+        if (substr($name, 0, 2) === '__') {
             return true;
         }
 
-        foreach (static::IGNORED_PREFIXES as $prefix) {
-            if (substr($name, 0, strlen($prefix)) === $prefix) {
-                return true;
-            }
+        if (in_array($name, static::IGNORED_NAMES)) {
+            return true;
         }
 
         return false;
@@ -98,10 +90,16 @@ class ActionPrefixSniff extends AbstractScopeSniff
             return;
         }
 
-        foreach (static::ACTIONS as $action) {
-            if (substr($functionName, 0, strlen($action)) === $action) {
-                return;
-            }
+        $camelCaseArray = preg_split('/(?=[A-Z])/', $functionName);
+
+        $actionPart = $camelCaseArray[0];
+
+        if (in_array($actionPart, static::PREFIXES, true)) {
+            $actionPart = strtolower($camelCaseArray[1] ?? '');
+        }
+
+        if (in_array($actionPart, $this->verbs, true)) {
+            return;
         }
 
         $phpcsFile->addWarning(
