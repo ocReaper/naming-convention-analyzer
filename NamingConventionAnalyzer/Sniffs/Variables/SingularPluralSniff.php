@@ -1,6 +1,6 @@
 <?php
 
-namespace NamingConventionAnalyzer\Sniffs\Functions;
+namespace NamingConventionAnalyzer\Sniffs\Variables;
 
 use Illuminate\Support\Pluralizer;
 use PHP_CodeSniffer\Files\File;

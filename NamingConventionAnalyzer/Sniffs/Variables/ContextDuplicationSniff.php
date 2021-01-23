@@ -1,6 +1,6 @@
 <?php
 
-namespace NamingConventionAnalyzer\Sniffs\Functions;
+namespace NamingConventionAnalyzer\Sniffs\Variables;
 
 use NamingConventionAnalyzer\Helpers\ContextDuplicationSniff as BaseContextDuplicationSniff;
 
@@ -8,6 +8,6 @@ class ContextDuplicationSniff extends BaseContextDuplicationSniff
 {
     public function register()
     {
-        return [T_FUNCTION];
+        return [T_VARIABLE];
     }
 }

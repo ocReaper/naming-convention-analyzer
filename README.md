@@ -38,7 +38,11 @@ Ensures that functions that returns boolean value must start with:
 
 Ensures that a function does not duplicate the name of the class it belongs to.
 
-#### NamingConventionAnalyzer.Functions.SingularPlural
+#### NamingConventionAnalyzer.Variables.ContextDuplication
+
+Ensures that a variable does not duplicate the name of the function it belongs to.
+
+#### NamingConventionAnalyzer.Variables.SingularPlural
 
 Ensures that the name of those variables that are containing non-associative arrays are in plural.
 
