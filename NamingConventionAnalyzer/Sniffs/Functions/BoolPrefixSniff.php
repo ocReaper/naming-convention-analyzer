@@ -35,7 +35,7 @@ class BoolPrefixSniff implements Sniff
             }
         }
 
-        $phpcsFile->addWarning(
+        $phpcsFile->addError(
             'Functions returning boolean should start with [has,is,should]. Found: %s',
             $stackPtr,
             static::CODE_BOOLEAN_PREFIX,

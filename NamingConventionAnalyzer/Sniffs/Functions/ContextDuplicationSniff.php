@@ -39,7 +39,7 @@ class ContextDuplicationSniff implements Sniff
             return;
         }
 
-        $phpcsFile->addWarning(
+        $phpcsFile->addError(
             'A name should not duplicate the context in which it is defined. Found: %s',
             $stackPtr,
             static::CODE_CONTEXT_DUPLICATION,

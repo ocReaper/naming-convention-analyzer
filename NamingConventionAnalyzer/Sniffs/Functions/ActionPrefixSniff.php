@@ -102,7 +102,7 @@ class ActionPrefixSniff extends AbstractScopeSniff
             return;
         }
 
-        $phpcsFile->addWarning(
+        $phpcsFile->addError(
             'Function names should start with action. Found: %s',
             $stackPtr,
             static::CODE_ACTION_PREFIX,
