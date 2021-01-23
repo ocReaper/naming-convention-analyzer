@@ -24,17 +24,7 @@ The ensured convention is identical to [kettanaito/naming-cheatsheet](https://gi
 
 #### NamingConventionAnalyzer.Functions.ActionPrefix
 
-Ensures that a function must start with:
-
-- compose
-- create
-- delete
-- fetch
-- get
-- handle
-- remove
-- reset
-- set
+Ensures that a function must start with a verb. In case the function starts with a prefix: the second word will be used in check.
 
 #### NamingConventionAnalyzer.Functions.BoolPrefix
 
@@ -52,15 +42,31 @@ Ensures that a function does not duplicate the name of the class it belongs to.
 
 Ensures that the name of those variables that are containing non-associative arrays are in plural.
 
+#### Squiz.NamingConventions.ValidFunctionName.NotCamelCaps
+
+Ensures that function names are in camel case.
+
+#### Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+
+Ensures that variable names are in camel case.
+
+#### Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+
+Ensures that class member names are in camel case.
+
+#### Squiz.NamingConventions.ValidVariableName.StringNotCamelCaps
+
+Ensures that variable names inside a doublequoted string are in camel case.
+
 ## Installation
 
 The recommended way to install ocReaper naming convention analyzer is [through Composer](http://getcomposer.org).
 
 ```JSON
 {
-	"require-dev": {
-		"ocreaper/naming-convention-analyzer": "*"
-	}
+    "require-dev": {
+        "ocreaper/naming-convention-analyzer": "0.4.1"
+    }
 }
 ```
 ## How to run the sniffs
