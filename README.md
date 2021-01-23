@@ -7,6 +7,8 @@ ocReaper naming convention analyzer for [PHP_CodeSniffer](https://github.com/squ
 
 The ensured convention is identical to [kettanaito/naming-cheatsheet](https://github.com/kettanaito/naming-cheatsheet).
 
+The project uses [tbrianjones/Inflect.php](https://gist.github.com/tbrianjones/ba0460cc1d55f357e00b) to handle pluralization.
+
 ## Table of contents
 
 1. [Sniffs included in this standard](#sniffs-included-in-this-standard)
