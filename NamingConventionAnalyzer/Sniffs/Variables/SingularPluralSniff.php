@@ -2,14 +2,15 @@
 
 namespace NamingConventionAnalyzer\Sniffs\Variables;
 
-use Illuminate\Support\Pluralizer;
+use NamingConventionAnalyzer\Helpers\Inflect;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 
 class SingularPluralSniff implements Sniff
 {
     protected const CODE_BOOLEAN_PREFIX = 'SingularPlural';
-    const ARRAY_OPENERS = [T_ARRAY, T_OPEN_SHORT_ARRAY];
+
+    protected const ARRAY_OPENERS = [T_ARRAY, T_OPEN_SHORT_ARRAY];
 
     public function register()
     {
@@ -18,8 +19,6 @@ class SingularPluralSniff implements Sniff
 
     public function process(File $phpcsFile, $stackPtr)
     {
-        require_once realpath(__DIR__ . '/../../../vendor') . DIRECTORY_SEPARATOR . 'autoload.php';
-
         $tokens = $phpcsFile->getTokens();
 
         if ($tokens[$stackPtr]['code'] === T_ARRAY) {
@@ -79,11 +78,14 @@ class SingularPluralSniff implements Sniff
             $arrayVariable['content']
         );
 
-        if (Pluralizer::plural($arrayVariableName) === $arrayVariableName) {
+        $camelCaseArray = preg_split('/(?=[A-Z])/', $arrayVariableName);
+        $lastWord = strtolower(array_pop($camelCaseArray));
+
+        if (Inflect::pluralize($lastWord) === $lastWord) {
             return;
         }
 
-        $phpcsFile->addWarning(
+        $phpcsFile->addError(
             'Variables containing multiple values should be in plural. Found: %s',
             $stackPtr,
             static::CODE_BOOLEAN_PREFIX,
